@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>untappd.jpg</file>
+    </qresource>
+</RCC>
