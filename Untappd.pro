@@ -14,12 +14,10 @@ SOURCES += src/Untappd.cpp
 
 OTHER_FILES += qml/Untappd.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/Untappd.spec \
     rpm/Untappd.yaml \
     Untappd.desktop \
     qml/UntappdListModel.qml \
-    qml/pages/UntappdListModel.qml \
     images/untappd-575x240.jpg \
     qml/pages/UntappdApp.js \
     qml/pages/settings.js \
