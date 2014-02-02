@@ -8,8 +8,9 @@ Page {
   onStatusChanged: {
     if (status != PageStatus.Active) return;
     if (App.isLoggedIn()) {
+      pageStack.push(Qt.resolvedUrl("PersonalFeedPage.qml", {}, PageStackAction.Animated))
     } else {
-      pageStack.push(Qt.resolvedUrl("LoginPage.qml"), { App: App }, PageStackAction.Animated);
+      pageStack.push(Qt.resolvedUrl("LoginPage.qml"), {}, PageStackAction.Animated);
     }
   }
 

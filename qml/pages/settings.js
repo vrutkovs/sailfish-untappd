@@ -13,7 +13,7 @@ function getDatabase() {
     return db;
 }
 
-function saveSetting(key, value) {
+function set(key, value) {
     var db = getDatabase();
     var res = false;
     db.transaction(function(tx) {
@@ -23,7 +23,7 @@ function saveSetting(key, value) {
     return res;
 }
 
-function readSetting(key, value) {
+function get(key) {
     var db = getDatabase();
     var res;
     db.transaction(function(tx) {

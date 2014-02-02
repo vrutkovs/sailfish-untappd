@@ -31,97 +31,44 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtWebKit 3.0
+import "UntappdApp.js" as App
 
-Dialog {
+Page {
   id: page
-
-  canAccept: usernameField.text.length > 0 && passwordField.text.length > 0
   backNavigation: false
-  acceptDestination: untappdAuthDropin
 
-  onAccepted: {
-    untappdAuthDropin.oauthUrl = App.oauthLoginUrl;
+  BusyIndicator {
+    running: true
+    size: BusyIndicatorSize.Large
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.horizontalCenter: parent.horizontalCenter
   }
 
-  SilicaFlickable {
-    anchors.fill: parent
-    contentHeight: page.height
-    width: page.width
-    height: page.height
-
-    DialogHeader {
-      id: header
-      title: "Log in"
+  SilicaWebView {
+    id: loginWebView
+    anchors {
+        top: parent.top
+        left: parent.left
+        right: parent.right
+        bottom: parent.bottom
     }
 
-    Image {
-      id: untappdLogo
-      source: "qrc:/res/untappd.jpg"
-      anchors.horizontalCenter: parent.horizontalCenter
-      width: page.width - 100
-      anchors.top: header.bottom
-    }
+    url: App.oauthLoginUrl
+    opacity: 0
 
-    TextField {
-      id: usernameField
-      width: parent.width - 100
-      anchors.horizontalCenter: parent.horizontalCenter
-      placeholderText: "Username"
-      focus: true
-      inputMethodHints: Qt.ImhNoPredictiveText
-      horizontalAlignment: TextInput.AlignHCenter
-      anchors.topMargin: 30
-      anchors.top: untappdLogo.bottom
-    }
-
-    TextField {
-      id: passwordField
-      width: parent.width - 100
-      anchors.horizontalCenter: parent.horizontalCenter
-      inputMethodHints: Qt.ImhNoPredictiveText
-      echoMode: TextInput.Password
-      placeholderText: "Password"
-      horizontalAlignment: TextInput.AlignHCenter
-      anchors.top: usernameField.bottom
-      anchors.topMargin: -40
-    }
-
-    Component {
-      id: untappdAuthDropin
-      Page {
-
-        BusyIndicator {
-          running: true
-          size: BusyIndicatorSize.Large
-          anchors.verticalCenter: parent.verticalCenter
-          anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        SilicaWebView {
-          id: loginWebView
-          anchors {
-              top: parent.top
-              left: parent.left
-              right: parent.right
-              bottom: parent.bottom
-          }
-
-          url: untappdAuthDropin.url
-
-          onLoadingChanged: {
-              switch (loadRequest.status) {
-              case WebView.LoadSucceededStatus:
-                  console.log('got a url of', loginWebView.url)
-                  opacity = 1
-                  break
-              }
-          }
-        }
+    onLoadingChanged: {
+      if (App.isReturnUrl(loadRequest.url.toString())) {
+        App.authenticateUserKey(loadRequest.url, function(err) {
+          if (err) return console.log('oh nose!', err);
+          else pageStack.pop(page, PageStackAction.Animated);
+        })
+      } else if (loadRequest.status == WebView.LoadSucceededStatus && opacity != 1) {
+        opacity = 1;
       }
     }
+
+    FadeAnimation on opacity {}
   }
-
-
 }
 
 

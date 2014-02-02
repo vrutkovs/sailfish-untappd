@@ -25,7 +25,9 @@ OTHER_FILES += qml/Untappd.qml \
     qml/pages/settings.js \
     qml/pages/PersonalFeedPage.qml \
     qml/pages/LoadingPage.qml \
-    qml/pages/LoginPage.qml
+    qml/pages/LoginPage.qml \
+    qml/pages/req.js \
+    qml/pages/keys.js
 
 RESOURCES += \
     resources.qrc

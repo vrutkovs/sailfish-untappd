@@ -1,15 +1,11 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "UntappdApp.js" as App
 
 
 Page {
     id: page
-    onStatusChanged: {
-      if (status == PageStatus.Active && !Untappd.isLoggedIn()) {
-        console.log("pushing login page", Untappd.isLoggedIn())
-        pageStack.push(Qt.resolvedUrl("FirstPage.qml"))
-      }
-    }
+    backNavigation: false
 
     SilicaListView {
         id: listView
@@ -19,12 +15,15 @@ Page {
             source: "http://api.untappd.com/v4/thepub?client_id=7E07FC9AC3B3866F4F620819996F262F087EAC92&client_secret=8CE5E863B1CC5C9B69820BF39717302135582D9A"
         }*/
 
-        ListModel {
-          id: lmodel
-          ListElement {
-            title: "Placeholder"
-          }
+        Component.onCompleted: {
+          App.api("/v4/checkin/recent", function(err, data) {
+            data.checkins.items.forEach(function(checkin) {
+              lmodel.append(checkin);
+            })
+          });
         }
+
+        ListModel { id: lmodel }
 
         model: lmodel
 
@@ -37,7 +36,7 @@ Page {
 
             Label {
                 x: Theme.paddingLarge
-                text: model.title
+                text: model.beer.beer_name
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }
