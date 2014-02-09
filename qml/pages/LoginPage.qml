@@ -60,7 +60,7 @@ Page {
       if (App.isReturnUrl(loadRequest.url.toString())) {
         App.authenticateUserKey(loadRequest.url, function(err) {
           if (err) return console.log('oh nose!', err);
-          else pageStack.pop(page, PageStackAction.Animated);
+          pageStack.replace(Qt.resolvedUrl("LoadingPage.qml"), {}, PageStackAction.Animated);
         })
       } else if (loadRequest.status == WebView.LoadSucceededStatus && opacity != 1) {
         opacity = 1;
