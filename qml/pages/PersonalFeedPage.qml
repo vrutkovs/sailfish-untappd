@@ -8,6 +8,14 @@ Page {
     backNavigation: false
 
     SilicaListView {
+      PullDownMenu {
+        id: pullDownMenu
+        MenuItem {
+          text: "Drink up!"
+          onClicked: pageStack.push(Qt.resolvedUrl("SearchPage.qml"))
+        }
+      }
+
       id: listView
       spacing: Theme.paddingLarge
 

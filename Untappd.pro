@@ -25,7 +25,10 @@ OTHER_FILES += qml/Untappd.qml \
     qml/pages/LoadingPage.qml \
     qml/pages/LoginPage.qml \
     qml/pages/req.js \
-    qml/pages/keys.js
+    qml/pages/keys.js \
+    qml/pages/CheckinPage.qml \
+    qml/pages/SearchPage.qml \
+    lib/underscore.js
 
 RESOURCES += \
     resources.qrc
