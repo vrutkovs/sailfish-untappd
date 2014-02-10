@@ -17,6 +17,8 @@ Page {
   SilicaListView {
       anchors.fill: parent
       currentIndex: -1 // otherwise currentItem will steal focus
+      width: parent.width
+
       header:  Column {
         id: headerContainer
 
@@ -41,7 +43,6 @@ Page {
         id: delegate
         height: 80
         contentHeight: 80
-        width: parent.width - 2 * Theme.paddingLarge
         x: Theme.paddingLarge
 
         Label {
@@ -50,10 +51,11 @@ Page {
 
           font.pixelSize: Theme.fontSizeMedium
           font.bold: true
-          truncationMode: TruncationMode.Fade
+          truncationMode: TruncationMode.Elide
           anchors {
             top: parent.top
             left: parent.left
+            leftMargin: Theme.paddingLarge
             right: abvPercent.left
             rightMargin: Theme.paddingMedium
           }
@@ -66,6 +68,7 @@ Page {
           anchors {
             top: parent.top
             right: parent.right
+            rightMargin: Theme.paddingLarge
           }
         }
 
@@ -73,13 +76,16 @@ Page {
           id: brewery
           text: model.brewery.brewery_name
           font.pixelSize: Theme.fontSizeExtraSmall
+          truncationMode: TruncationMode.Elide
           anchors {
             top: beerName.bottom
             left: parent.left
+            leftMargin: Theme.paddingLarge
             right: parent.right
           }
         }
 
+        onClicked: pageStack.push(Qt.resolvedUrl("BeerPage.qml"), { beer: model }, PageStackAction.Animated)
       }
 
       VerticalScrollDecorator {}
