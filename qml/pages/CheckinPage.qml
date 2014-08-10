@@ -21,8 +21,18 @@ Dialog {
         }
 
         Label {
+          text: beer.brewery.brewery_name
+          color: Theme.secondaryColor
+          font.pixelSize: Theme.fontSizeSmall
+          anchors {
+            horizontalCenter: parent.horizontalCenter
+          }
+        }
+
+        Label {
           text: beer.beer.beer_name
           font.pixelSize: Theme.fontSizeLarge
+          color: Theme.primaryColor
           anchors {
             horizontalCenter: parent.horizontalCenter
           }
