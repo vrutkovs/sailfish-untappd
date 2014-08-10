@@ -5,17 +5,19 @@ import "UntappdApp.js" as App
 Dialog {
   id: checkinPage
   property var beer
+  canAccept: checkinText.length <= 140
 
-  SilicaListView {
-      anchors.fill: parent
-      currentIndex: -1 // otherwise currentItem will steal focus
-      header:  Column {
+  SilicaFlickable {
+    anchors.fill: parent
+    contentHeight: content.height + Theme.paddingLarge
+
+    Column {
         id: col
         spacing: Theme.paddingMedium
         width: parent.width
 
-        PageHeader {
-          title: "Check in"
+        DialogHeader {
+          acceptText: "Check in"
         }
 
         Label {
@@ -36,6 +38,7 @@ Dialog {
 
         TextArea {
           width: parent.width
+          id: checkinText
           height: Math.max(80, implicitHeight)
           errorHighlight: text.length > 140
           placeholderText: "What did you think?"
