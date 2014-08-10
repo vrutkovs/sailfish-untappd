@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "UntappdApp.js" as App
+import "debounce.js" as Db
 
 Page {
   id: searchPage
@@ -41,9 +42,8 @@ Page {
       model: ListModel { id: listModel }
       delegate: BackgroundItem {
         id: delegate
-        height: 80
-        contentHeight: 80
-        x: Theme.paddingLarge
+        height: 90
+        contentHeight: 90
 
         Label {
           id: beerName
@@ -54,6 +54,7 @@ Page {
           truncationMode: TruncationMode.Elide
           anchors {
             top: parent.top
+            topMargin: 5
             left: parent.left
             leftMargin: Theme.paddingLarge
             right: abvPercent.left
