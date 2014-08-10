@@ -23,7 +23,18 @@ Dialog {
         Label {
           text: beer.beer.beer_name
           font.pixelSize: Theme.fontSizeLarge
-          horizontalAlignment: Label.AlignHCenter
+          anchors {
+            horizontalCenter: parent.horizontalCenter
+          }
+        }
+
+        TextArea {
+          width: parent.width
+          id: checkinText
+          height: Math.max(80, implicitHeight)
+          errorHighlight: text.length > 140
+          placeholderText: "What did you think?"
+          label: 140 - text.length
         }
 
         Slider {
@@ -34,15 +45,6 @@ Dialog {
           width: parent.width
           valueText: value == 0 ? "No Rating" : value
           label: "Rating"
-        }
-
-        TextArea {
-          width: parent.width
-          id: checkinText
-          height: Math.max(80, implicitHeight)
-          errorHighlight: text.length > 140
-          placeholderText: "What did you think?"
-          label: 140 - text.length
         }
       }
 
