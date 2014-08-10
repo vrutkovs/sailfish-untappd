@@ -16,7 +16,7 @@ Page {
 
 
       PageHeader {
-        title: beer.beer.beer_name
+        title: ""
         id: header
       }
 
@@ -103,6 +103,16 @@ Page {
           right: parent.right
           leftMargin: Theme.paddingMedium
           rightMargin: Theme.paddingMedium
+        }
+      }
+
+      Button {
+        text: "Check in"
+        onClicked: pageStack.push(Qt.resolvedUrl("CheckinPage.qml"), { beer: beer }, PageStackAction.Animated)
+        anchors {
+          top: beerdesc.bottom
+          topMargin: Theme.paddingMedium
+          horizontalCenter: parent.horizontalCenter
         }
       }
     }
