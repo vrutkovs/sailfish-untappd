@@ -40,7 +40,7 @@ Page {
 
       anchors.fill: parent
       header: PageHeader {
-        title: "Untappd"
+        title: "Recent checkins"
       }
 
       VerticalScrollDecorator {}
