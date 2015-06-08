@@ -47,7 +47,7 @@ Page {
 
       delegate: BackgroundItem {
         id: delegate
-        height: 100
+        height: 120
         contentHeight: 100
         width: parent.width - 2*Theme.paddingLarge
         x: Theme.paddingLarge
@@ -88,19 +88,45 @@ Page {
         Label {
           id: beerTitle
           font.pixelSize: Theme.fontSizeSmall
-          text: model.beer.beer_name + ' by ' + model.brewery.brewery_name
+          text: model.beer.beer_name
           wrapMode: Text.WordWrap
           maximumLineCount: 2
           color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
           anchors {
             left: beerlabel.right
-            right: parent.right
+            right: rating.left
             top: username.bottom
             leftMargin: Theme.paddingMedium
           }
         }
 
+        Label {
+          id: rating
+          font.pixelSize: Theme.fontSizeSmall
+          font.bold: true
+          text: model.rating_score
+          anchors {
+            top: beerlabel.verticalCenter
+            leftMargin: Theme.paddingSmall
+            right: parent.right
+          }
+        }
+
+        Label {
+          id: breweryTitle
+          font.pixelSize: Theme.fontSizeExtraSmall
+          text: 'by ' + model.brewery.brewery_name
+          truncationMode: TruncationMode.Fade
+          color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+          anchors {
+            left: beerlabel.right
+            right: rating.left
+            top: beerTitle.bottom
+            leftMargin: Theme.paddingMedium
+          }
+        }
       }
+
       VerticalScrollDecorator {}
     }
 }
