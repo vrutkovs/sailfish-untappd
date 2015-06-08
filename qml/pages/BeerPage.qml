@@ -88,16 +88,91 @@ Page {
         }
       }
 
+      Button {
+        text: "Check in"
+        id: doCheckin
+        onClicked: pageStack.push(Qt.resolvedUrl("CheckinPage.qml"), { beer: beer }, PageStackAction.Animated)
+        anchors {
+          top: beerlabel.bottom
+          topMargin: Theme.paddingMedium
+          horizontalCenter: parent.horizontalCenter
+        }
+      }
+
+      Image {
+        source: beer.venue.venue_icon.sm
+        id: venueImage
+        width: 64
+        height: 64
+        anchors {
+          left: parent.left
+          top: doCheckin.bottom
+          topMargin: Theme.paddingMedium
+          rightMargin: Theme.paddingMedium
+        }
+      }
+
+      Label {
+        color: Theme.primaryColor
+        id: venueName
+        font.pixelSize: Theme.fontSizeSmall
+        wrapMode: Text.WordWrap
+        truncationMode: TruncationMode.Fade
+        visible: beer.venue.venue_name !== undefined
+        text: { return 'At ' + beer.venue.venue_name; }
+        anchors {
+          top: doCheckin.bottom
+          topMargin: Theme.paddingMedium
+          left: venueImage.left
+          leftMargin: Theme.paddingMedium
+          rightMargin: Theme.paddingMedium
+        }
+      }
+
+      Label {
+        color: Theme.secondaryColor
+        id: venueCategory
+        font.pixelSize: Theme.fontSizeExtraSmall
+        wrapMode: Text.WordWrap
+        truncationMode: TruncationMode.Fade
+        visible: beer.venue.primary_category.length !== undefined
+        text: beer.venue.primary_category
+        anchors {
+          top: beerlabel.bottom
+          topMargin: Theme.paddingMedium
+          left: venueName.left
+          leftMargin: Theme.paddingMedium
+          rightMargin: Theme.paddingMedium
+        }
+      }
+
+      Label {
+        color: Theme.secondaryColor
+        id: checkinTime
+        font.pixelSize: Theme.fontSizeExtraSmall
+        wrapMode: Text.WordWrap
+        truncationMode: TruncationMode.Fade
+        visible: beer.created_at !== undefined
+        text: { return 'On ' + beer.created_at }
+        anchors {
+          top: venueName.bottom
+          topMargin: Theme.paddingMedium
+          left: parent.left
+          leftMargin: Theme.paddingMedium
+          rightMargin: Theme.paddingMedium
+        }
+      }
+
       Label {
         color: Theme.primaryColor
         id: rating
         font.pixelSize: Theme.fontSizeMedium
         wrapMode: Text.WordWrap
         truncationMode: TruncationMode.Fade
-        visible: beer.rating_score
+        visible: beer.rating_score  !== undefined
         text: 'Your Rating: ' + beer.rating_score
         anchors {
-          top: beerlabel.bottom
+          top: checkinTime.bottom
           topMargin: Theme.paddingMedium
           left: parent.left
           right: parent.right
@@ -122,16 +197,6 @@ Page {
           right: parent.right
           leftMargin: Theme.paddingMedium
           rightMargin: Theme.paddingMedium
-        }
-      }
-
-      Button {
-        text: "Check in"
-        onClicked: pageStack.push(Qt.resolvedUrl("CheckinPage.qml"), { beer: beer }, PageStackAction.Animated)
-        anchors {
-          top: rating.bottom
-          topMargin: Theme.paddingMedium
-          horizontalCenter: parent.horizontalCenter
         }
       }
     }
