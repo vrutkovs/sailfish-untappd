@@ -29,7 +29,8 @@ OTHER_FILES += qml/Untappd.qml \
     qml/pages/CheckinPage.qml \
     qml/pages/SearchPage.qml \
     lib/underscore.js \
-    qml/pages/BeerPage.qml
+    qml/pages/BeerPage.qml \
+    qml/pages/keys.js
 
 RESOURCES += \
     resources.qrc
