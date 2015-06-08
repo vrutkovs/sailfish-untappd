@@ -125,6 +125,8 @@ Page {
             leftMargin: Theme.paddingMedium
           }
         }
+
+        onClicked: pageStack.push(Qt.resolvedUrl("BeerPage.qml"), { beer: model }, PageStackAction.Animated)
       }
 
       VerticalScrollDecorator {}
