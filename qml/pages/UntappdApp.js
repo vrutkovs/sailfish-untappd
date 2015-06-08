@@ -45,16 +45,18 @@ function api(path, opts, callback) {
     opts = {};
   }
 
-  var url = 'http://api.untappd.com' + path;
+  var url = 'https://api.untappd.com' + path;
 
   opts.access_token = token();
-  opts.client_secret = Keys.UT_CLIENT_SECRET;
-  opts.client_id = Keys.UT_CLIENT_ID;
+  //opts.client_secret = Keys.UT_CLIENT_SECRET;
+  //opts.client_id = Keys.UT_CLIENT_ID;
 
   Object.keys(opts).forEach(function(key, i) {
     url += i ? '&' : '?';
     url += key + '=' + encodeURIComponent(opts[key]);
   });
+
+  console.log("Requesting " + url);
 
   Req.get(url, function(err, xhr) {
     if (err) return callback(err);

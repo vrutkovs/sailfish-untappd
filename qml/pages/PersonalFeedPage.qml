@@ -20,7 +20,8 @@ Page {
       spacing: Theme.paddingLarge
 
       Component.onCompleted: {
-        App.api("/v4/checkin/recent", function(err, data) {
+        App.api("/v4/user/checkins/", function(err, data) {
+          console.log("Got data:" + data);
           data.checkins.items.forEach(function(checkin) {
             lmodel.append(checkin);
           })
