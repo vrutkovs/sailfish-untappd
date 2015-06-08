@@ -36,6 +36,12 @@ ApplicationWindow
 {
     initialPage: Component { LoadingPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+
+    function coverSearchClicked() {
+        //TODO: Make sure we're not on SearchPage already
+        pageStack.push(Qt.resolvedUrl("pages/SearchPage.qml"));
+        activate();
+    }
 }
 
 
