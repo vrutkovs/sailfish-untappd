@@ -21,8 +21,14 @@ Page {
 
       Component.onCompleted: {
         App.api("/v4/user/checkins/", function(err, data) {
-          console.log("Got data:" + data);
           data.checkins.items.forEach(function(checkin) {
+            // QML doesn't like checkin.venue
+            // Lets just store things we're interested in
+            var venue = Object();
+            if (checkin.venue.venue_name) {
+                venue.venue_name = checkin.venue.venue_name;
+            }
+            checkin.venue = venue;
             lmodel.append(checkin);
           })
         });
@@ -62,8 +68,10 @@ Page {
           id: username
           text: {
             var name = model.user.first_name + ' ' + model.user.last_name;
-            if (!model.venue || !model.venue.venue_name) return name;
-            return name + ' at ' + model.venue.venue_name;
+            if (model.venue.venue_name) {
+                name = name + ' at ' + model.venue.venue_name;
+            }
+            return name;
           }
 
           font.pixelSize: Theme.fontSizeExtraSmall
