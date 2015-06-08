@@ -59,6 +59,7 @@ Page {
           rightMargin: Theme.paddingMedium
         }
       }
+
       Label {
         text: beer.brewery.brewery_name
         color: Theme.primaryColor
@@ -88,16 +89,34 @@ Page {
       }
 
       Label {
-        text: beer.beer.beer_description
+        color: Theme.primaryColor
+        id: rating
+        font.pixelSize: Theme.fontSizeMedium
+        wrapMode: Text.WordWrap
+        truncationMode: TruncationMode.Fade
+        visible: beer.rating_score
+        text: 'Your Rating: ' + beer.rating_score
+        anchors {
+          top: beerlabel.bottom
+          topMargin: Theme.paddingMedium
+          left: parent.left
+          right: parent.right
+          leftMargin: Theme.paddingMedium
+          rightMargin: Theme.paddingMedium
+        }
+      }
+
+      Label {
         color: Theme.secondaryColor
-        id: beerdesc
+        id: checkincomment
         font.pixelSize: Theme.fontSizeExtraSmall
         wrapMode: Text.WordWrap
         truncationMode: TruncationMode.Fade
         maximumLineCount: 4
-        visible: beer.beer.beer_description.length > 0
+        text: beer.checkin_comment
+        visible: beer.checkin_comment.length > 0
         anchors {
-          top: beerlabel.bottom
+          top: rating.bottom
           topMargin: Theme.paddingMedium
           left: parent.left
           right: parent.right
@@ -110,7 +129,7 @@ Page {
         text: "Check in"
         onClicked: pageStack.push(Qt.resolvedUrl("CheckinPage.qml"), { beer: beer }, PageStackAction.Animated)
         anchors {
-          top: beerdesc.bottom
+          top: rating.bottom
           topMargin: Theme.paddingMedium
           horizontalCenter: parent.horizontalCenter
         }
